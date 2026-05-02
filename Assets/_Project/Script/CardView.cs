@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class CardView : MonoBehaviour
@@ -11,23 +12,49 @@ public class CardView : MonoBehaviour
     private TurnDuelManager duelManager;
     private bool isPlayerCard;
 
-    internal CardData CardData => cardData;
+    private AudioSource hoverAudio;
+    private AudioSource clickAudio;
 
-    internal void Setup(CardData data, TurnDuelManager manager, bool isPlayer)
+    public CardData CardData => cardData;
+
+    public void Setup(CardData data, TurnDuelManager manager, bool playerCard, AudioSource hover, AudioSource click)
     {
         cardData = data;
         duelManager = manager;
-        isPlayerCard = isPlayer;
+        isPlayerCard = playerCard;
+
+        hoverAudio = hover;
+        clickAudio = click;
 
         cardImage.sprite = data.Sprite;
+
+        var btn = GetComponent<Button>();
+        btn.onClick.RemoveAllListeners();
+        btn.onClick.AddListener(OnClick);
     }
 
-    internal void SetBack(Sprite backSprite)
+    public void OnPointerEnter(PointerEventData evenrData)
+    {
+        if (!isPlayerCard) return;
+
+        if (hoverAudio != null) hoverAudio.Play();
+    }
+
+    private void Onclick()
+    {
+        if (!isPlayerCard) return;
+
+        if (clickAudio != null) clickAudio.Play();
+
+        duelManager.PlayerPlayCard(this);
+    }
+
+    public void SetBack(Sprite backSprite)
     {
         cardImage.sprite = backSprite;
     }
 
-    internal void Reveal()
+    public void Reveal()
     {
         cardImage.sprite = cardData.Sprite;
     }
@@ -38,3 +65,4 @@ public class CardView : MonoBehaviour
             duelManager.PlayerPlayCard(this);
     }
 }
+

@@ -30,6 +30,8 @@ public class TurnDuelManager : MonoBehaviour
     [SerializeField] private float drawDelay = 0.3f;
     [SerializeField] private float moveDuration = 0.3f;
 
+    [Header()]
+
     private readonly List<CardData> playerDeck = new();
     private readonly List<CardData> cpuDeck = new();
 
@@ -78,7 +80,7 @@ public class TurnDuelManager : MonoBehaviour
         playerTurn = true;
     }
 
-    internal void PlayerPlayCard(CardView playerCard)
+    public void PlayerPlayCard(CardView playerCard)
     {
         if (!playerTurn) return;
 
@@ -118,85 +120,85 @@ public class TurnDuelManager : MonoBehaviour
     }
 
     private void ResolveCards(CardData playerCard, CardData cpuCard)
-{
-int playerDamage = GetDamage(playerCard);
-int cpuDamage = GetDamage(cpuCard);
+    {
+        int playerDamage = GetDamage(playerCard);
+        int cpuDamage = GetDamage(cpuCard);
 
-int playerBlock = GetBlock(playerCard);
-int cpuBlock = GetBlock(cpuCard);
+        int playerBlock = GetBlock(playerCard);
+        int cpuBlock = GetBlock(cpuCard);
 
-bool playerFullBlock = IsFullBlock(playerCard);
-bool cpuFullBlock = IsFullBlock(cpuCard);
+        bool playerFullBlock = IsFullBlock(playerCard);
+        bool cpuFullBlock = IsFullBlock(cpuCard);
 
-bool playerReflect = IsReflect(playerCard);
-bool cpuReflect = IsReflect(cpuCard);
+        bool playerReflect = IsReflect(playerCard);
+        bool cpuReflect = IsReflect(cpuCard);
 
-if (cpuFullBlock)
-playerDamage = 0;
-else
-playerDamage = Mathf.Max(0, playerDamage - cpuBlock);
+        if (cpuFullBlock)
+            playerDamage = 0;
+        else
+            playerDamage = Mathf.Max(0, playerDamage - cpuBlock);
 
-if (playerFullBlock)
-cpuDamage = 0;
-else
-cpuDamage = Mathf.Max(0, cpuDamage - playerBlock);
+        if (playerFullBlock)
+            cpuDamage = 0;
+        else
+            cpuDamage = Mathf.Max(0, cpuDamage - playerBlock);
 
-if (cpuReflect && playerDamage > 0)
-{
-playerHealth -= playerDamage;
-playerDamage = 0;
-}
+        if (cpuReflect && playerDamage > 0)
+        {
+            playerHealth -= playerDamage;
+            playerDamage = 0;
+        }
 
-if (playerReflect && cpuDamage > 0)
-{
-cpuHealth -= cpuDamage;
-cpuDamage = 0;
-}
+        if (playerReflect && cpuDamage > 0)
+        {
+            cpuHealth -= cpuDamage;
+            cpuDamage = 0;
+        }
 
-cpuHealth -= playerDamage;
-playerHealth -= cpuDamage;
+        cpuHealth -= playerDamage;
+        playerHealth -= cpuDamage;
 
-if (playerCard.CardType == CardType.Heal)
-playerHealth += playerCard.Value;
+        if (playerCard.CardType == CardType.Heal)
+            playerHealth += playerCard.Value;
 
-if (cpuCard.CardType == CardType.Heal)
-cpuHealth += cpuCard.Value;
+        if (cpuCard.CardType == CardType.Heal)
+            cpuHealth += cpuCard.Value;
 
-playerHealth = Mathf.Clamp(playerHealth, 0, maxHealth);
-cpuHealth = Mathf.Clamp(cpuHealth, 0, maxHealth);
-}
+        playerHealth = Mathf.Clamp(playerHealth, 0, maxHealth);
+        cpuHealth = Mathf.Clamp(cpuHealth, 0, maxHealth);
+    }
 
-private int GetDamage(CardData card)
-{
-if (card.CardType == CardType.Attack)
-return card.Value;
+    private int GetDamage(CardData card)
+    {
+        if (card.CardType == CardType.Attack)
+            return card.Value;
 
-if (card.CardType == CardType.Special &&
-card.SpecialType == SpecialType.HeavyAttack)
-return card.Value;
+        if (card.CardType == CardType.Special &&
+        card.SpecialType == SpecialType.HeavyAttack)
+            return card.Value;
 
-return 0;
-}
+        return 0;
+    }
 
-private int GetBlock(CardData card)
-{
-if (card.CardType == CardType.Defense)
-return card.Value;
+    private int GetBlock(CardData card)
+    {
+        if (card.CardType == CardType.Defense)
+            return card.Value;
 
-return 0;
-}
+        return 0;
+    }
 
-private bool IsFullBlock(CardData card)
-{
-return card.CardType == CardType.Special &&
-card.SpecialType == SpecialType.FullBlock;
-}
+    private bool IsFullBlock(CardData card)
+    {
+        return card.CardType == CardType.Special &&
+        card.SpecialType == SpecialType.FullBlock;
+    }
 
-private bool IsReflect(CardData card)
-{
-return card.CardType == CardType.Special &&
-card.SpecialType == SpecialType.Reflect;
-}
+    private bool IsReflect(CardData card)
+    {
+        return card.CardType == CardType.Special &&
+        card.SpecialType == SpecialType.Reflect;
+    }
 
     private void DrawPlayerCard()
     {
