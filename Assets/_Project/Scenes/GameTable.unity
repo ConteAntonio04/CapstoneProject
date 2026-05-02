@@ -817,8 +817,8 @@ MonoBehaviour:
   cpuHealthText: {fileID: 1863464417}
   maxHealth: 30
   startingCards: 3
-  drawDelay: 1
-  moveDuration: 1
+  drawDelay: 0.6
+  moveDuration: 0.6
 --- !u!1 &1006801041
 GameObject:
   m_ObjectHideFlags: 0
