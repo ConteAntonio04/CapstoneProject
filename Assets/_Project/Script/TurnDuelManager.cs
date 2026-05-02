@@ -30,7 +30,9 @@ public class TurnDuelManager : MonoBehaviour
     [SerializeField] private float drawDelay = 0.3f;
     [SerializeField] private float moveDuration = 0.3f;
 
-    [Header()]
+    [Header("Audio")]
+    [SerializeField] private AudioSource hoverAudio;
+    [SerializeField] private AudioSource clickAudio;
 
     private readonly List<CardData> playerDeck = new();
     private readonly List<CardData> cpuDeck = new();
@@ -236,7 +238,7 @@ public class TurnDuelManager : MonoBehaviour
         GameObject obj = Instantiate(cardPrefab, parent);
         CardView view = obj.GetComponent<CardView>();
 
-        view.Setup(data, this, isPlayer);
+        view.Setup(data, this, isPlayer, hoverAudio, clickAudio);
 
         RectTransform rect = obj.GetComponent<RectTransform>();
         rect.sizeDelta = new Vector2(120, 160);

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CardView : MonoBehaviour
+public class CardView : MonoBehaviour, IPointerEnterHandler
 {
     [SerializeField] private Image cardImage;
 
@@ -40,7 +40,7 @@ public class CardView : MonoBehaviour
         if (hoverAudio != null) hoverAudio.Play();
     }
 
-    private void Onclick()
+    private void OnClick()
     {
         if (!isPlayerCard) return;
 
@@ -57,12 +57,6 @@ public class CardView : MonoBehaviour
     public void Reveal()
     {
         cardImage.sprite = cardData.Sprite;
-    }
-
-    public void OnClick()
-    {
-        if (isPlayerCard)
-            duelManager.PlayerPlayCard(this);
     }
 }
 
