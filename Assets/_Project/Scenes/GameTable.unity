@@ -360,7 +360,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'PLAYER : 20/20'
+  m_text: 'PLAYER : --/--'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
@@ -697,6 +697,16 @@ MonoBehaviour:
     specialType: 0
     value: 2
     sprite: {fileID: 21300000, guid: efba766256ffc8f4f89bed18ca9118a4, type: 3}
+  - cardName: Attacco 2
+    cardType: 0
+    specialType: 0
+    value: 2
+    sprite: {fileID: 21300000, guid: efba766256ffc8f4f89bed18ca9118a4, type: 3}
+  - cardName: Attacco 3
+    cardType: 0
+    specialType: 0
+    value: 3
+    sprite: {fileID: 21300000, guid: bb214dc5db81a704aa5cd0e3afdcd1a7, type: 3}
   - cardName: Attacco 3
     cardType: 0
     specialType: 0
@@ -707,6 +717,16 @@ MonoBehaviour:
     specialType: 0
     value: 4
     sprite: {fileID: 21300000, guid: e5a518ac5712cfa428b90db7dec9e614, type: 3}
+  - cardName: Attacco 4
+    cardType: 0
+    specialType: 0
+    value: 4
+    sprite: {fileID: 21300000, guid: e5a518ac5712cfa428b90db7dec9e614, type: 3}
+  - cardName: Cura 2
+    cardType: 2
+    specialType: 0
+    value: 2
+    sprite: {fileID: 21300000, guid: ef48c736a58a6964faf7a5f7b1093484, type: 3}
   - cardName: Cura 2
     cardType: 2
     specialType: 0
@@ -717,6 +737,16 @@ MonoBehaviour:
     specialType: 0
     value: 3
     sprite: {fileID: 21300000, guid: 2b5ab017ae5cbba4bbfcf0a31f1ff93a, type: 3}
+  - cardName: Cura 3
+    cardType: 2
+    specialType: 0
+    value: 3
+    sprite: {fileID: 21300000, guid: 2b5ab017ae5cbba4bbfcf0a31f1ff93a, type: 3}
+  - cardName: Cura 4
+    cardType: 2
+    specialType: 0
+    value: 4
+    sprite: {fileID: 21300000, guid: 844e56656e1d1964b8f006a7a4561b6e, type: 3}
   - cardName: Cura 4
     cardType: 2
     specialType: 0
@@ -727,6 +757,16 @@ MonoBehaviour:
     specialType: 0
     value: 2
     sprite: {fileID: 21300000, guid: 1ec1f557d4dc0da4dafc3336587d2e16, type: 3}
+  - cardName: Blocco 2
+    cardType: 1
+    specialType: 0
+    value: 2
+    sprite: {fileID: 21300000, guid: 1ec1f557d4dc0da4dafc3336587d2e16, type: 3}
+  - cardName: Blocco 3
+    cardType: 1
+    specialType: 0
+    value: 3
+    sprite: {fileID: 21300000, guid: 868ed620f5f4b1c42a8ffde4d5254916, type: 3}
   - cardName: Blocco 3
     cardType: 1
     specialType: 0
@@ -737,6 +777,16 @@ MonoBehaviour:
     specialType: 0
     value: 4
     sprite: {fileID: 21300000, guid: f36fdfff00198134abb698343057e877, type: 3}
+  - cardName: Blocco 4
+    cardType: 1
+    specialType: 0
+    value: 4
+    sprite: {fileID: 21300000, guid: f36fdfff00198134abb698343057e877, type: 3}
+  - cardName: Attacco Pesante
+    cardType: 3
+    specialType: 2
+    value: 8
+    sprite: {fileID: 21300000, guid: 3b45a380e7ab6814c846ea289d24f78f, type: 3}
   - cardName: Attacco Pesante
     cardType: 3
     specialType: 2
@@ -747,6 +797,16 @@ MonoBehaviour:
     specialType: 1
     value: 0
     sprite: {fileID: 21300000, guid: 2c39f1c5fc494b34d91736c641ce983e, type: 3}
+  - cardName: Blocco Assoluto
+    cardType: 3
+    specialType: 1
+    value: 0
+    sprite: {fileID: 21300000, guid: 2c39f1c5fc494b34d91736c641ce983e, type: 3}
+  - cardName: Riflesso
+    cardType: 3
+    specialType: 3
+    value: 0
+    sprite: {fileID: 21300000, guid: 4387a28cf5e07a144b88c7f281339060, type: 3}
   - cardName: Riflesso
     cardType: 3
     specialType: 3
@@ -755,10 +815,10 @@ MonoBehaviour:
   cardBackSprite: {fileID: 21300000, guid: ca1a7664e058e7344b790055ff53b333, type: 3}
   playerHealthText: {fileID: 749191439}
   cpuHealthText: {fileID: 1863464417}
-  maxHealth: 20
+  maxHealth: 30
   startingCards: 3
-  drawDelay: 0.3
-  moveDuration: 0.3
+  drawDelay: 1
+  moveDuration: 1
 --- !u!1 &1006801041
 GameObject:
   m_ObjectHideFlags: 0
@@ -1131,7 +1191,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'CPU : 20/20'
+  m_text: 'CPU : --/--'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}

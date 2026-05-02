@@ -118,58 +118,85 @@ public class TurnDuelManager : MonoBehaviour
     }
 
     private void ResolveCards(CardData playerCard, CardData cpuCard)
-    {
-        bool playerFullBlock = playerCard.CardType == CardType.Special && playerCard.SpecialType == SpecialType.FullBlock;
-        bool cpuFullBlock = cpuCard.CardType == CardType.Special && cpuCard.SpecialType == SpecialType.FullBlock;
+{
+int playerDamage = GetDamage(playerCard);
+int cpuDamage = GetDamage(cpuCard);
 
-        bool playerReflect = playerCard.CardType == CardType.Special && playerCard.SpecialType == SpecialType.Reflect;
-        bool cpuReflect = cpuCard.CardType == CardType.Special && cpuCard.SpecialType == SpecialType.Reflect;
+int playerBlock = GetBlock(playerCard);
+int cpuBlock = GetBlock(cpuCard);
 
-        bool playerBlocked = playerCard.CardType == CardType.Defense || playerFullBlock;
-        bool cpuBlocked = cpuCard.CardType == CardType.Defense || cpuFullBlock;
+bool playerFullBlock = IsFullBlock(playerCard);
+bool cpuFullBlock = IsFullBlock(cpuCard);
 
-        int playerDamage = 0;
-        int cpuDamage = 0;
+bool playerReflect = IsReflect(playerCard);
+bool cpuReflect = IsReflect(cpuCard);
 
-        if (playerCard.CardType == CardType.Attack)
-            playerDamage = playerCard.Value;
+if (cpuFullBlock)
+playerDamage = 0;
+else
+playerDamage = Mathf.Max(0, playerDamage - cpuBlock);
 
-        if (playerCard.CardType == CardType.Special && playerCard.SpecialType == SpecialType.HeavyAttack)
-            playerDamage = playerCard.Value;
+if (playerFullBlock)
+cpuDamage = 0;
+else
+cpuDamage = Mathf.Max(0, cpuDamage - playerBlock);
 
-        if (cpuCard.CardType == CardType.Attack)
-            cpuDamage = cpuCard.Value;
+if (cpuReflect && playerDamage > 0)
+{
+playerHealth -= playerDamage;
+playerDamage = 0;
+}
 
-        if (cpuCard.CardType == CardType.Special && cpuCard.SpecialType == SpecialType.HeavyAttack)
-            cpuDamage = cpuCard.Value;
+if (playerReflect && cpuDamage > 0)
+{
+cpuHealth -= cpuDamage;
+cpuDamage = 0;
+}
 
-        if (cpuReflect && playerDamage > 0)
-        {
-            playerHealth -= playerDamage;
-            playerDamage = 0;
-        }
+cpuHealth -= playerDamage;
+playerHealth -= cpuDamage;
 
-        if (playerReflect && cpuDamage > 0)
-        {
-            cpuHealth -= cpuDamage;
-            cpuDamage = 0;
-        }
+if (playerCard.CardType == CardType.Heal)
+playerHealth += playerCard.Value;
 
-        if (!cpuBlocked)
-            cpuHealth -= playerDamage;
+if (cpuCard.CardType == CardType.Heal)
+cpuHealth += cpuCard.Value;
 
-        if (!playerBlocked)
-            playerHealth -= cpuDamage;
+playerHealth = Mathf.Clamp(playerHealth, 0, maxHealth);
+cpuHealth = Mathf.Clamp(cpuHealth, 0, maxHealth);
+}
 
-        if (playerCard.CardType == CardType.Heal)
-            playerHealth += playerCard.Value;
+private int GetDamage(CardData card)
+{
+if (card.CardType == CardType.Attack)
+return card.Value;
 
-        if (cpuCard.CardType == CardType.Heal)
-            cpuHealth += cpuCard.Value;
+if (card.CardType == CardType.Special &&
+card.SpecialType == SpecialType.HeavyAttack)
+return card.Value;
 
-        playerHealth = Mathf.Clamp(playerHealth, 0, maxHealth);
-        cpuHealth = Mathf.Clamp(cpuHealth, 0, maxHealth);
-    }
+return 0;
+}
+
+private int GetBlock(CardData card)
+{
+if (card.CardType == CardType.Defense)
+return card.Value;
+
+return 0;
+}
+
+private bool IsFullBlock(CardData card)
+{
+return card.CardType == CardType.Special &&
+card.SpecialType == SpecialType.FullBlock;
+}
+
+private bool IsReflect(CardData card)
+{
+return card.CardType == CardType.Special &&
+card.SpecialType == SpecialType.Reflect;
+}
 
     private void DrawPlayerCard()
     {
@@ -242,8 +269,8 @@ public class TurnDuelManager : MonoBehaviour
 
     private void UpdateHealthUI()
     {
-        playerHealthText.text = $"PLAYER : {playerHealth}";
-        cpuHealthText.text = $"CPU : {cpuHealth}";
+        playerHealthText.text = $"PLAYER : {playerHealth}/{maxHealth}";
+        cpuHealthText.text = $"CPU : {cpuHealth}/{maxHealth}";
     }
 
     private void Shuffle(List<CardData> deck)
