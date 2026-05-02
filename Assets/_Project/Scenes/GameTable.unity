@@ -737,32 +737,32 @@ MonoBehaviour:
   playerPlayZone: {fileID: 261769819}
   cpuPlayZone: {fileID: 1336490590}
   allCards:
-  - cardName: Attacco 2
+  - cardName: Attaco 2
     cardType: 0
     specialType: 0
     value: 2
     sprite: {fileID: 21300000, guid: efba766256ffc8f4f89bed18ca9118a4, type: 3}
-  - cardName: Attacco 2
+  - cardName: Attaco 2
     cardType: 0
     specialType: 0
     value: 2
     sprite: {fileID: 21300000, guid: efba766256ffc8f4f89bed18ca9118a4, type: 3}
-  - cardName: Attacco 3
+  - cardName: Attaco 3
     cardType: 0
     specialType: 0
     value: 3
     sprite: {fileID: 21300000, guid: bb214dc5db81a704aa5cd0e3afdcd1a7, type: 3}
-  - cardName: Attacco 3
+  - cardName: Attaco 3
     cardType: 0
     specialType: 0
     value: 3
     sprite: {fileID: 21300000, guid: bb214dc5db81a704aa5cd0e3afdcd1a7, type: 3}
-  - cardName: Attacco 4
+  - cardName: Attaco 4
     cardType: 0
     specialType: 0
     value: 4
     sprite: {fileID: 21300000, guid: e5a518ac5712cfa428b90db7dec9e614, type: 3}
-  - cardName: Attacco 4
+  - cardName: Attaco 4
     cardType: 0
     specialType: 0
     value: 4
@@ -860,12 +860,14 @@ MonoBehaviour:
   cardBackSprite: {fileID: 21300000, guid: ca1a7664e058e7344b790055ff53b333, type: 3}
   playerHealthText: {fileID: 749191439}
   cpuHealthText: {fileID: 1863464417}
+  victoryPanel: {fileID: 0}
+  defeatPanel: {fileID: 0}
+  hoverAudio: {fileID: 1047888094}
+  clickAudio: {fileID: 1847114878}
   maxHealth: 30
   startingCards: 3
   drawDelay: 0.6
   moveDuration: 0.6
-  hoverAudio: {fileID: 1047888094}
-  clickAudio: {fileID: 1847114878}
 --- !u!1 &1006801041
 GameObject:
   m_ObjectHideFlags: 0
