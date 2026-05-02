@@ -313,6 +313,11 @@ public class TurnDuelManager : MonoBehaviour
 
     private void EndGame()
     {
+        MusicManager music = FindObjectOfType<MusicManager>();
+
+        if (music != null)
+            music.StopMusic();
+
         playerTurn = false;
         DisablePlayerCards();
 
