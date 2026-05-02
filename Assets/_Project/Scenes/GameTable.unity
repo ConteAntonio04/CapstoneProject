@@ -223,6 +223,8 @@ RectTransform:
   - {fileID: 1891952723}
   - {fileID: 749191438}
   - {fileID: 1863464416}
+  - {fileID: 261769819}
+  - {fileID: 1336490590}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -230,6 +232,41 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &261769818
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 261769819}
+  m_Layer: 5
+  m_Name: PlayerPlayZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &261769819
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261769818}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 105480471}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 450, y: 0}
+  m_SizeDelta: {x: 120, y: 160}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!1 &737209747
 GameObject:
   m_ObjectHideFlags: 0
@@ -300,8 +337,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -120, y: 70}
-  m_SizeDelta: {x: 250, y: 60}
+  m_AnchoredPosition: {x: -100, y: 70}
+  m_SizeDelta: {x: 350, y: 60}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &749191439
 MonoBehaviour:
@@ -323,7 +360,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'VITA : 20/20'
+  m_text: 'PLAYER : 20/20'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
@@ -644,7 +681,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 979485558}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4455437e0b3ca9b4fb1d345734360628, type: 3}
+  m_Script: {fileID: 11500000, guid: dd1d31a17f611094f9690d61ee5348d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cardPrefab: {fileID: 897967707042486812, guid: f81b1094c881f2d48888ba5409df0b47, type: 3}
@@ -652,23 +689,76 @@ MonoBehaviour:
   cpuHand: {fileID: 1720293286}
   playerDeckPosition: {fileID: 875904974}
   cpuDeckPosition: {fileID: 737209748}
-  allCardSprites:
-  - {fileID: 21300000, guid: efba766256ffc8f4f89bed18ca9118a4, type: 3}
-  - {fileID: 21300000, guid: bb214dc5db81a704aa5cd0e3afdcd1a7, type: 3}
-  - {fileID: 21300000, guid: e5a518ac5712cfa428b90db7dec9e614, type: 3}
-  - {fileID: 21300000, guid: ef48c736a58a6964faf7a5f7b1093484, type: 3}
-  - {fileID: 21300000, guid: 2b5ab017ae5cbba4bbfcf0a31f1ff93a, type: 3}
-  - {fileID: 21300000, guid: 844e56656e1d1964b8f006a7a4561b6e, type: 3}
-  - {fileID: 21300000, guid: 1ec1f557d4dc0da4dafc3336587d2e16, type: 3}
-  - {fileID: 21300000, guid: 868ed620f5f4b1c42a8ffde4d5254916, type: 3}
-  - {fileID: 21300000, guid: f36fdfff00198134abb698343057e877, type: 3}
-  - {fileID: 21300000, guid: 3b45a380e7ab6814c846ea289d24f78f, type: 3}
-  - {fileID: 21300000, guid: 2c39f1c5fc494b34d91736c641ce983e, type: 3}
-  - {fileID: 21300000, guid: 4387a28cf5e07a144b88c7f281339060, type: 3}
+  playerPlayZone: {fileID: 261769819}
+  cpuPlayZone: {fileID: 1336490590}
+  allCards:
+  - cardName: Attacco 2
+    cardType: 0
+    specialType: 0
+    value: 2
+    sprite: {fileID: 21300000, guid: efba766256ffc8f4f89bed18ca9118a4, type: 3}
+  - cardName: Attacco 3
+    cardType: 0
+    specialType: 0
+    value: 3
+    sprite: {fileID: 21300000, guid: bb214dc5db81a704aa5cd0e3afdcd1a7, type: 3}
+  - cardName: Attacco 4
+    cardType: 0
+    specialType: 0
+    value: 4
+    sprite: {fileID: 21300000, guid: e5a518ac5712cfa428b90db7dec9e614, type: 3}
+  - cardName: Cura 2
+    cardType: 2
+    specialType: 0
+    value: 2
+    sprite: {fileID: 21300000, guid: ef48c736a58a6964faf7a5f7b1093484, type: 3}
+  - cardName: Cura 3
+    cardType: 2
+    specialType: 0
+    value: 3
+    sprite: {fileID: 21300000, guid: 2b5ab017ae5cbba4bbfcf0a31f1ff93a, type: 3}
+  - cardName: Cura 4
+    cardType: 2
+    specialType: 0
+    value: 4
+    sprite: {fileID: 21300000, guid: 844e56656e1d1964b8f006a7a4561b6e, type: 3}
+  - cardName: Blocco 2
+    cardType: 1
+    specialType: 0
+    value: 2
+    sprite: {fileID: 21300000, guid: 1ec1f557d4dc0da4dafc3336587d2e16, type: 3}
+  - cardName: Blocco 3
+    cardType: 1
+    specialType: 0
+    value: 3
+    sprite: {fileID: 21300000, guid: 868ed620f5f4b1c42a8ffde4d5254916, type: 3}
+  - cardName: Blocco 4
+    cardType: 1
+    specialType: 0
+    value: 4
+    sprite: {fileID: 21300000, guid: f36fdfff00198134abb698343057e877, type: 3}
+  - cardName: Attacco Pesante
+    cardType: 3
+    specialType: 2
+    value: 8
+    sprite: {fileID: 21300000, guid: 3b45a380e7ab6814c846ea289d24f78f, type: 3}
+  - cardName: Blocco Assoluto
+    cardType: 3
+    specialType: 1
+    value: 0
+    sprite: {fileID: 21300000, guid: 2c39f1c5fc494b34d91736c641ce983e, type: 3}
+  - cardName: Riflesso
+    cardType: 3
+    specialType: 3
+    value: 0
+    sprite: {fileID: 21300000, guid: 4387a28cf5e07a144b88c7f281339060, type: 3}
   cardBackSprite: {fileID: 21300000, guid: ca1a7664e058e7344b790055ff53b333, type: 3}
+  playerHealthText: {fileID: 749191439}
+  cpuHealthText: {fileID: 1863464417}
+  maxHealth: 20
   startingCards: 3
-  drawDelay: 0.35
-  moveDuration: 0.35
+  drawDelay: 0.3
+  moveDuration: 0.3
 --- !u!1 &1006801041
 GameObject:
   m_ObjectHideFlags: 0
@@ -812,6 +902,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1037364442}
   m_CullTransparentMesh: 1
+--- !u!1 &1336490589
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1336490590}
+  m_Layer: 5
+  m_Name: CPUPlayZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1336490590
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1336490589}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 105480471}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -450, y: 0}
+  m_SizeDelta: {x: 120, y: 160}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!1 &1412735375
 GameObject:
   m_ObjectHideFlags: 0
@@ -1006,7 +1131,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'VITA : 20/20'
+  m_text: 'CPU : 20/20'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
