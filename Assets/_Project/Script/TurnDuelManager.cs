@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class TurnDuelManager : MonoBehaviour
@@ -30,6 +31,8 @@ public class TurnDuelManager : MonoBehaviour
     [Header("Audio")]
     [SerializeField] private AudioSource hoverAudio;
     [SerializeField] private AudioSource clickAudio;
+    [SerializeField] private AudioSource winAudio;
+    [SerializeField] private AudioSource loseAudio;
 
     [Header("Settings")]
     [SerializeField] private int maxHealth = 40;
@@ -317,11 +320,17 @@ public class TurnDuelManager : MonoBehaviour
         {
             if (victoryPanel != null)
                 victoryPanel.SetActive(true);
+
+            if (winAudio != null)
+                winAudio.Play();
         }
         else
         {
             if (defeatPanel != null)
                 defeatPanel.SetActive(true);
+
+            if (loseAudio  != null)
+                loseAudio.Play();
         }
     }
 
@@ -341,5 +350,22 @@ public class TurnDuelManager : MonoBehaviour
     {
         playerHealthText.text = $"PLAYER : {playerHealth}/{maxHealth}";
         cpuHealthText.text = $"CPU: {cpuHealth}/{maxHealth}";
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void ExitGame()
+    {
+        Debug.Log("Esci dal gioco");
+
+        Application.Quit();
     }
 }
