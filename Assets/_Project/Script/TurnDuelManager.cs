@@ -32,13 +32,10 @@ public class TurnDuelManager : MonoBehaviour
     [SerializeField] private AudioSource clickAudio;
 
     [Header("Settings")]
-    [SerializeField] private int maxHealth = 30;
+    [SerializeField] private int maxHealth = 40;
     [SerializeField] private int startingCards = 3;
     [SerializeField] private float drawDelay = 0.6f;
     [SerializeField] private float moveDuration = 0.6f;
-
-    private readonly List<CardData> playerDeck = new();
-    private readonly List<CardData> cpuDeck = new();
 
     private readonly List<CardView> playerHandCards = new();
     private readonly List<CardView> cpuHandCards = new();
@@ -58,31 +55,9 @@ public class TurnDuelManager : MonoBehaviour
         if (defeatPanel != null)
             defeatPanel.SetActive(false);
 
-        CreateDecks();
         UpdateHealthUI();
 
         StartCoroutine(StartGame());
-    }
-
-    private void CreateDecks()
-    {
-        playerDeck.Clear();
-        cpuDeck.Clear();
-
-        foreach (CardData card in allCards)
-        {
-            if(card == null)
-            {
-                Debug.LogWarning("Carta nulla trovata, ignorata");
-                continue;
-            }
-
-            playerDeck.AddRange(allCards);
-            cpuDeck.AddRange(allCards);
-        }
-
-        Shuffle(playerDeck);
-        Shuffle(cpuDeck);
     }
 
     private IEnumerator StartGame()
@@ -113,55 +88,51 @@ public class TurnDuelManager : MonoBehaviour
 
     private IEnumerator ResolveTurn(CardView playerCard)
     {
-        if (cpuHandCards.Count == 0)
-        {
-            CheckGameOver();
-            yield break;
-        }
-
         playerHandCards.Remove(playerCard);
 
-        CardView cpuCard = cpuHandCards[Random.Range(0, cpuHandCards.Count)];
-        if (playerCard == null ||  cpuCard == null)
+        if (cpuHandCards.Count == 0)
         {
-            CheckGameOver();
+            DrawCPUCard();
+            yield return new WaitForSeconds(drawDelay);
+        }
+
+        CardView cpuCard = cpuHandCards[Random.Range(0, cpuHandCards.Count)];
+
+        if (playerCard == null || cpuCard == null)
+        {
+            playerTurn = true;
             yield break;
         }
+
         cpuHandCards.Remove(cpuCard);
 
         yield return MoveCard(playerCard.GetComponent<RectTransform>(), playerPlayZone.position);
         yield return MoveCard(cpuCard.GetComponent<RectTransform>(), cpuPlayZone.position);
 
         cpuCard.Reveal();
-        cpuCard.GetComponent<RectTransform>().localRotation = Quaternion.identity;
+
+        RectTransform cpuRect = cpuCard.GetComponent<RectTransform>();
+        cpuRect.localRotation = Quaternion.identity;
 
         ResolveCards(playerCard.CardData, cpuCard.CardData);
         UpdateHealthUI();
 
-        CheckGameOver();
-        if (!playerTurn)
+        if (IsGameOver())
+        {
+            EndGame();
             yield break;
+        }
 
         yield return new WaitForSeconds(0.7f);
 
         Destroy(playerCard.gameObject);
         Destroy(cpuCard.gameObject);
 
-        if (playerDeck.Count > 0)
-        {
-            DrawPlayerCard();
-            yield return new WaitForSeconds(drawDelay);
-        }
+        DrawPlayerCard();
+        yield return new WaitForSeconds(drawDelay);
 
-        if (cpuDeck.Count > 0)
-        {
-            DrawCPUCard();
-            yield return new WaitForSeconds(drawDelay);
-        }
-
-        CheckGameOver();
-        if (!playerTurn)
-            yield break;
+        DrawCPUCard();
+        yield return new WaitForSeconds(drawDelay);
 
         playerTurn = true;
     }
@@ -249,11 +220,8 @@ public class TurnDuelManager : MonoBehaviour
 
     private void DrawPlayerCard()
     {
-        if (playerDeck.Count == 0)
-            return;
-
-        CardData data = playerDeck[0];
-        playerDeck.RemoveAt(0);
+        CardData data = GetRandomCard();
+        if (data == null) return;
 
         CardView card = CreateCard(data, playerHand, true);
         playerHandCards.Add(card);
@@ -263,11 +231,8 @@ public class TurnDuelManager : MonoBehaviour
 
     private void DrawCPUCard()
     {
-        if (cpuDeck.Count == 0)
-            return;
-
-        CardData data = cpuDeck[0];
-        cpuDeck.RemoveAt(0);
+        CardData data = GetRandomCard();
+        if (data == null) return;
 
         CardView card = CreateCard(data, cpuHand, false);
         card.SetBack(cardBackSprite);
@@ -277,6 +242,25 @@ public class TurnDuelManager : MonoBehaviour
         rect.localRotation = Quaternion.Euler(0f, 0f, 180f);
 
         StartCoroutine(DrawAnimation(rect, cpuDeckPosition.position));
+    }
+
+    private CardData GetRandomCard()
+    {
+        if (allCards == null || allCards.Length == 0)
+        {
+            Debug.LogError("All Cards è vuoto.");
+            return null;
+        }
+
+        CardData card = allCards[Random.Range(0, allCards.Length)];
+
+        if (card == null)
+        {
+            Debug.LogError("Carta nulla trovata in All Cards.");
+            return null;
+        }
+
+        return card;
     }
 
     private CardView CreateCard(CardData data, Transform parent, bool isPlayer)
@@ -321,25 +305,12 @@ public class TurnDuelManager : MonoBehaviour
 
     private bool IsGameOver()
     {
-        if (playerHealth <= 0 || cpuHealth <= 0)
-            return true;
-
-        return playerDeck.Count == 0 &&
-        cpuDeck.Count == 0 &&
-        playerHandCards.Count == 0 &&
-        cpuHandCards.Count == 0;
+        return playerHealth <= 0 || cpuHealth <= 0;
     }
 
-    private void CheckGameOver()
+    private void EndGame()
     {
-        if (!IsGameOver())
-        {
-            playerTurn = true;
-            return;
-        }
-
         playerTurn = false;
-
         DisablePlayerCards();
 
         if (playerHealth > cpuHealth)
@@ -369,15 +340,6 @@ public class TurnDuelManager : MonoBehaviour
     private void UpdateHealthUI()
     {
         playerHealthText.text = $"PLAYER : {playerHealth}/{maxHealth}";
-        cpuHealthText.text = $"CPU : {cpuHealth}/{maxHealth}";
-    }
-
-    private void Shuffle(List<CardData> deck)
-    {
-        for (int i = 0; i < deck.Count; i++)
-        {
-            int randomIndex = Random.Range(i, deck.Count);
-            (deck[i], deck[randomIndex]) = (deck[randomIndex], deck[i]);
-        }
+        cpuHealthText.text = $"CPU: {cpuHealth}/{maxHealth}";
     }
 }
