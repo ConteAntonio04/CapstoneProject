@@ -23,6 +23,7 @@ public class TurnDuelManager : MonoBehaviour
     [SerializeField] private Sprite cardBackSprite;
 
     [Header("UI")]
+    [SerializeField] private TMP_Text turnCounterText;
     [SerializeField] private TMP_Text playerHealthText;
     [SerializeField] private TMP_Text cpuHealthText;
     [SerializeField] private GameObject victoryPanel;
@@ -45,6 +46,7 @@ public class TurnDuelManager : MonoBehaviour
 
     private int playerHealth;
     private int cpuHealth;
+    private int turnCounter = 1;
     private bool playerTurn;
 
     private void Start()
@@ -59,6 +61,8 @@ public class TurnDuelManager : MonoBehaviour
             defeatPanel.SetActive(false);
 
         UpdateHealthUI();
+
+        UpdateTurnCounterUI();
 
         StartCoroutine(StartGame());
     }
@@ -136,6 +140,9 @@ public class TurnDuelManager : MonoBehaviour
 
         DrawCPUCard();
         yield return new WaitForSeconds(drawDelay);
+
+        turnCounter++;
+        UpdateTurnCounterUI();
 
         playerTurn = true;
     }
@@ -355,6 +362,12 @@ public class TurnDuelManager : MonoBehaviour
     {
         playerHealthText.text = $"PLAYER : {playerHealth}/{maxHealth}";
         cpuHealthText.text = $"CPU: {cpuHealth}/{maxHealth}";
+    }
+
+    private void UpdateTurnCounterUI()
+    {
+        if (turnCounterText != null)
+            turnCounterText.text = $"Turno : {turnCounter}";
     }
 
     public void RestartGame()
