@@ -18,7 +18,7 @@ A simple turn-based card game developed in Unity.
 - Unity
 - C#
 
-## 📦 Download
+## 📦 Gameplay
 You can play the game from itch.io.
 https://conteanto.itch.io/battle-cards
 
