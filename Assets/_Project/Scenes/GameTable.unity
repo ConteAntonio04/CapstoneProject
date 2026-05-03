@@ -2390,8 +2390,8 @@ MonoBehaviour:
   loseAudio: {fileID: 404166673}
   maxHealth: 40
   startingCards: 3
-  drawDelay: 0.6
-  moveDuration: 0.6
+  drawDelay: 0.5
+  moveDuration: 0.5
 --- !u!1 &1006801041
 GameObject:
   m_ObjectHideFlags: 0

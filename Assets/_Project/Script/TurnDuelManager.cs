@@ -38,8 +38,8 @@ public class TurnDuelManager : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private int maxHealth = 40;
     [SerializeField] private int startingCards = 3;
-    [SerializeField] private float drawDelay = 0.6f;
-    [SerializeField] private float moveDuration = 0.6f;
+    [SerializeField] private float drawDelay = 0.5f;
+    [SerializeField] private float moveDuration = 0.5f;
 
     private readonly List<CardView> playerHandCards = new();
     private readonly List<CardView> cpuHandCards = new();
