@@ -18,7 +18,7 @@ public class MainMenuController : MonoBehaviour
     }
     public void OpenOptions()
     {
-        Debug.Log("Options clicked - da implementare");
+        Debug.Log("Da implementare");
     }
     
     public void ExitGame()
