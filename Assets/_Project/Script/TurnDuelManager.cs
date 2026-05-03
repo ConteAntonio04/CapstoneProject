@@ -328,6 +328,9 @@ public class TurnDuelManager : MonoBehaviour
         playerTurn = false;
         DisablePlayerCards();
 
+        if (turnCounterText != null)
+            turnCounterText. gameObject.SetActive(false);
+
         if (playerHealth > cpuHealth)
         {
             if (victoryPanel != null)
