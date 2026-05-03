@@ -2388,7 +2388,7 @@ MonoBehaviour:
   clickAudio: {fileID: 1847114878}
   winAudio: {fileID: 592538619}
   loseAudio: {fileID: 404166673}
-  maxHealth: 40
+  maxHealth: 30
   startingCards: 3
   drawDelay: 0.5
   moveDuration: 0.5
